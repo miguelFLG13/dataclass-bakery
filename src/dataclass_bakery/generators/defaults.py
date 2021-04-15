@@ -1,5 +1,6 @@
 from decimal import Decimal
 from pathlib import Path
+from uuid import UUID
 
 from dataclass_bakery.generators.random_bool_generator import RandomBoolGenerator
 from dataclass_bakery.generators.random_complex_generator import RandomComplexGenerator
@@ -13,6 +14,7 @@ from dataclass_bakery.generators.random_range_generator import RandomRangeGenera
 from dataclass_bakery.generators.random_set_generator import RandomSetGenerator
 from dataclass_bakery.generators.random_str_generator import RandomStrGenerator
 from dataclass_bakery.generators.random_tuple_generator import RandomTupleGenerator
+from dataclass_bakery.generators.random_uuid_generator import RandomUuidGenerator
 
 
 TYPING_GENERATORS = {
@@ -28,6 +30,7 @@ TYPING_GENERATORS = {
     range: RandomRangeGenerator,
     Decimal: RandomDecimalGenerator,
     Path: RandomPathGenerator,
+    UUID: RandomUuidGenerator,
 }
 
 NUMBER_MIN_LIMIT = 0

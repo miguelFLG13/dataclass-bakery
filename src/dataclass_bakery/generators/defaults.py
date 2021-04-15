@@ -1,5 +1,6 @@
 from decimal import Decimal
 from pathlib import Path
+from typing import Literal
 from uuid import UUID
 
 from dataclass_bakery.generators.random_bool_generator import RandomBoolGenerator
@@ -9,6 +10,7 @@ from dataclass_bakery.generators.random_dict_generator import RandomDictGenerato
 from dataclass_bakery.generators.random_float_generator import RandomFloatGenerator
 from dataclass_bakery.generators.random_int_generator import RandomIntGenerator
 from dataclass_bakery.generators.random_list_generator import RandomListGenerator
+from dataclass_bakery.generators.random_option_generator import RandomOptionGenerator
 from dataclass_bakery.generators.random_path_generator import RandomPathGenerator
 from dataclass_bakery.generators.random_range_generator import RandomRangeGenerator
 from dataclass_bakery.generators.random_set_generator import RandomSetGenerator
@@ -31,6 +33,7 @@ TYPING_GENERATORS = {
     Decimal: RandomDecimalGenerator,
     Path: RandomPathGenerator,
     UUID: RandomUuidGenerator,
+    Literal: RandomOptionGenerator,
 }
 
 NUMBER_MIN_LIMIT = 0
@@ -44,6 +47,7 @@ DEFAULT_PATH_TYPE = str
 
 MAX_STR_LENGTH = 10
 MAX_LIST_LENGTH = 3
+MAX_TUPLE_LENGTH = 3
 MAX_SET_LENGTH = 3
 MAX_DICT_LENGTH = 3
 MAX_PATH_LENGTH = 5

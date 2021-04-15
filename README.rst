@@ -54,8 +54,11 @@ Types available:
 -  List (from typing import List)
 -  Tuple (from typing import Tuple)
 -  Dict (from typing import Dict)
+-  Union (from typing import Union)
+-  Optional (from typing import Optional)
 -  Path (from pathlib import Path)
 -  Decimal (from decimal import Decimal)
+-  UUID (from uuid import UUID)
 
 Next steps
 ^^^^^^^^^^

@@ -1,5 +1,5 @@
 from dataclasses import is_dataclass, make_dataclass
-from typing import _GenericAlias, Any
+from typing import _GenericAlias, Any, Union
 
 from dataclass_bakery.generators.defaults import TYPING_GENERATORS
 
@@ -11,11 +11,32 @@ class RandomDataClassGenerator:
 
             field_is_dataclass = is_dataclass(field_type)
 
-            arguments = {}
+            arguments = kwargs.get(field_name, {})
             if field_is_dataclass:
                 generator = RandomDataClassGenerator()
                 field_randomized = generator.generate(field_type, **arguments)
             else:
+                if (
+                    isinstance(field_type, _GenericAlias)
+                    and field_type.__origin__ == Union
+                ):
+                    has_new_type = False
+                    for argument in field_type.__args__:
+                        if argument != type(None):
+                            has_new_type = True
+                            field_type = argument
+
+                        if (
+                            not hasattr(field_type, "__origin__")
+                            or field_type.__origin__ != Union
+                        ):
+                            break
+
+                    if not has_new_type:
+                        raise TypeError(
+                            f"Union without Typing in dataclass {field_name}"
+                        )
+
                 if isinstance(field_type, _GenericAlias):
                     arguments_lenght = len(field_type.__args__)
                     if arguments_lenght > 1:  # Is a Dict

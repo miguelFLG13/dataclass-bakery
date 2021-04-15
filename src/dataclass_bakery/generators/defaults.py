@@ -10,6 +10,7 @@ from dataclass_bakery.generators.random_int_generator import RandomIntGenerator
 from dataclass_bakery.generators.random_list_generator import RandomListGenerator
 from dataclass_bakery.generators.random_path_generator import RandomPathGenerator
 from dataclass_bakery.generators.random_range_generator import RandomRangeGenerator
+from dataclass_bakery.generators.random_set_generator import RandomSetGenerator
 from dataclass_bakery.generators.random_str_generator import RandomStrGenerator
 from dataclass_bakery.generators.random_tuple_generator import RandomTupleGenerator
 
@@ -23,6 +24,7 @@ TYPING_GENERATORS = {
     dict: RandomDictGenerator,
     list: RandomListGenerator,
     tuple: RandomTupleGenerator,
+    set: RandomSetGenerator,
     range: RandomRangeGenerator,
     Decimal: RandomDecimalGenerator,
     Path: RandomPathGenerator,
@@ -39,6 +41,6 @@ DEFAULT_PATH_TYPE = str
 
 MAX_STR_LENGTH = 10
 MAX_LIST_LENGTH = 3
-MAX_TUPLE_LENGTH = 3
+MAX_SET_LENGTH = 3
 MAX_DICT_LENGTH = 3
 MAX_PATH_LENGTH = 5

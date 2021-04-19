@@ -1,8 +1,8 @@
-dataclass-bakery
+Dataclass Bakery
 ================
 
-Dataclass Bakery offers you a smart way to create fixtures for testing
-in Python with dataclasses. Inspired in dataclass bakery.
+Dataclass Bakery offers you a smart way to create objects based on dataclasses for testing in Python.
+Inspired in model bakery module for Django.
 
 Install
 ~~~~~~~
@@ -38,6 +38,8 @@ Basic usage
     [Customer(id=27, name='OYvyWakmUX', spent_money=84.98), Customer(id=41, name='AiancdsmLg', spent_money=57.57), Customer(id=92, name='feTxLyuSus', spent_money=26.06)]
     """
 
+For more information: https://dataclass-bakery.readthedocs.io/
+
 Types available:
 ^^^^^^^^^^^^^^^^
 
@@ -59,12 +61,4 @@ Types available:
 -  Path (from pathlib import Path)
 -  Decimal (from decimal import Decimal)
 -  UUID (from uuid import UUID)
-
-Next steps
-^^^^^^^^^^
-
--  Include more attr types
--  Feature to customize the random attributes (MAX\_LENGHT, MIN\_LIMIT,
-   MAX\_LIMIT...)
--  Feature to customize what generator use with what attribute
 

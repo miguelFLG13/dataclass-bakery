@@ -11,18 +11,22 @@ class RandomDictGenerator(RandomGenerator):
     """
 
     def generate(self, *args, **kwargs) -> dict:
-        max_length = defaults.MAX_DICT_LENGTH
+        max_length = kwargs.get(defaults.MAX_LENGTH_ARG, defaults.MAX_DICT_LENGTH)
 
-        default_key_type = defaults.DEFAULT_KEY_TYPE
-        default_value_type = defaults.DEFAULT_VALUE_TYPE
+        default_key_type = kwargs.get(
+            defaults.DEFAULT_KEY_TYPE_ARG, defaults.DEFAULT_KEY_TYPE
+        )
+        default_value_type = kwargs.get(
+            defaults.DEFAULT_VALUE_TYPE_ARG, defaults.DEFAULT_VALUE_TYPE
+        )
 
-        key_type = kwargs.get("key_type", default_key_type)
-        value_type = kwargs.get("value_type", default_value_type)
+        key_type = kwargs.get(defaults.KEY_TYPE_ARG, default_key_type)
+        value_type = kwargs.get(defaults.VALUE_TYPE_ARG, default_value_type)
 
         if is_dataclass(key_type):
             key_generator = random_data_class_generator.RandomDataClassGenerator()
         else:
-            key_generator = defaults.TYPING_GENERATORS[value_type]()
+            key_generator = defaults.TYPING_GENERATORS[key_type]()
 
         if is_dataclass(value_type):
             value_generator = random_data_class_generator.RandomDataClassGenerator()

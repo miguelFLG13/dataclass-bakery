@@ -10,9 +10,10 @@ class RandomComplexGenerator(RandomGenerator):
     """
 
     def generate(self, *args, **kwargs) -> complex:
-        min_limit = defaults.NUMBER_MIN_LIMIT
-        max_limit = defaults.NUMBER_MAX_LIMIT
-        decimals = defaults.DECIMALS
+        min_limit = kwargs.get(defaults.NUMBER_MIN_LIMIT_ARG, defaults.NUMBER_MIN_LIMIT)
+        max_limit = kwargs.get(defaults.NUMBER_MAX_LIMIT_ARG, defaults.NUMBER_MAX_LIMIT)
+
+        decimals = kwargs.get(defaults.DECIMALS_ARG, defaults.DECIMALS)
         real_part = random.uniform(min_limit, max_limit)
         rounded_real_part = round(real_part, decimals)
         imaginary_part = random.uniform(min_limit, max_limit)

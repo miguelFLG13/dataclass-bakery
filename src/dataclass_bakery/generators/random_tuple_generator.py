@@ -11,11 +11,13 @@ class RandomTupleGenerator(RandomGenerator):
     """
 
     def generate(self, *args, **kwargs) -> tuple:
-        max_length = defaults.MAX_TUPLE_LENGTH
+        max_length = kwargs.get(defaults.MAX_LENGTH_ARG, defaults.MAX_TUPLE_LENGTH)
 
-        default_value_type = defaults.DEFAULT_VALUE_TYPE
+        default_value_type = kwargs.get(
+            defaults.DEFAULT_VALUE_TYPE_ARG, defaults.DEFAULT_VALUE_TYPE
+        )
 
-        value_type = kwargs.get("value_type", default_value_type)
+        value_type = kwargs.get(defaults.VALUE_TYPE_ARG, default_value_type)
 
         if is_dataclass(value_type):
             generator = random_data_class_generator.RandomDataClassGenerator()

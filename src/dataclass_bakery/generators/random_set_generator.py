@@ -8,11 +8,13 @@ class RandomSetGenerator(RandomGenerator):
     """
 
     def generate(self, *args, **kwargs) -> set:
-        max_length = defaults.MAX_SET_LENGTH
+        max_length = kwargs.get(defaults.MAX_LENGTH_ARG, defaults.MAX_SET_LENGTH)
 
-        default_value_type = defaults.DEFAULT_VALUE_TYPE
+        default_value_type = kwargs.get(
+            defaults.DEFAULT_VALUE_TYPE_ARG, defaults.DEFAULT_VALUE_TYPE
+        )
 
-        value_type = kwargs.get("value_type", default_value_type)
+        value_type = kwargs.get(defaults.VALUE_TYPE_ARG, default_value_type)
         generator = defaults.TYPING_GENERATORS[value_type]()
 
         random_set = set()

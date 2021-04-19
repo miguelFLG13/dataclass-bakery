@@ -1,7 +1,7 @@
 from dataclasses import is_dataclass
 from typing import _GenericAlias, Any, Literal, Union
 
-from dataclass_bakery.generators.defaults import TYPING_GENERATORS
+from dataclass_bakery.generators import defaults
 
 
 class RandomDataClassGenerator:
@@ -10,6 +10,15 @@ class RandomDataClassGenerator:
         for field_name, field_type in data_class.__annotations__.items():
 
             arguments = kwargs.get(field_name, {})
+            if defaults.FIXED_VALUE_ARG in arguments:  # Value fixed
+                random_data[field_name] = arguments[defaults.FIXED_VALUE_ARG]
+                continue
+
+            if defaults.GENERATOR_ARG in arguments:  # Generator fixed
+                generator = arguments[defaults.GENERATOR_ARG]()
+                field_randomized = generator.generate(**arguments)
+                random_data[field_name] = field_randomized
+                continue
 
             if isinstance(field_type, _GenericAlias) and field_type.__origin__ == Union:
                 has_new_type = False
@@ -30,13 +39,13 @@ class RandomDataClassGenerator:
             if (
                 isinstance(field_type, _GenericAlias)
                 and field_type.__origin__ != Literal
-            ):
+            ):  # Is a Dict or List
                 arguments_lenght = len(field_type.__args__)
                 if arguments_lenght > 1:  # Is a Dict
-                    arguments["key_type"] = field_type.__args__[0]
-                    arguments["value_type"] = field_type.__args__[1]
+                    arguments[defaults.KEY_TYPE_ARG] = field_type.__args__[0]
+                    arguments[defaults.VALUE_TYPE_ARG] = field_type.__args__[1]
                 elif arguments_lenght > 0:  # Is a List or Tuple
-                    arguments["value_type"] = field_type.__args__[0]
+                    arguments[defaults.VALUE_TYPE_ARG] = field_type.__args__[0]
 
                 field_type = field_type.__origin__
 
@@ -44,14 +53,14 @@ class RandomDataClassGenerator:
                 isinstance(field_type, _GenericAlias)
                 and field_type.__origin__ == Literal
             ):
-                arguments["options"] = field_type.__args__
+                arguments[defaults.OPTIONS_ARG] = field_type.__args__
                 field_type = field_type.__origin__
 
             if is_dataclass(field_type):
                 generator = RandomDataClassGenerator()
                 field_randomized = generator.generate(field_type, **arguments)
             else:
-                generator_class = TYPING_GENERATORS.get(field_type)
+                generator_class = defaults.TYPING_GENERATORS.get(field_type)
                 generator = generator_class()
                 field_randomized = generator.generate(**arguments)
 

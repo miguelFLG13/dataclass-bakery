@@ -48,6 +48,6 @@ Contents
 .. toctree::
    :maxdepth: 4
 
-   basic_usage
-   generators
-   custom_objects
+   source/basic_usage
+   source/generators
+   source/custom_objects

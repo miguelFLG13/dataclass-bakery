@@ -42,6 +42,8 @@ For more information: https://dataclass-bakery.readthedocs.io/
  - float
  - bool
  - complex
+ - date
+ - datetime
  - range
  - list
  - tuple

@@ -1,3 +1,4 @@
+from datetime import date, datetime
 from decimal import Decimal
 from pathlib import Path
 from typing import Literal
@@ -5,6 +6,10 @@ from uuid import UUID
 
 from dataclass_bakery.generators.random_bool_generator import RandomBoolGenerator
 from dataclass_bakery.generators.random_complex_generator import RandomComplexGenerator
+from dataclass_bakery.generators.random_date_generator import RandomDateGenerator
+from dataclass_bakery.generators.random_datetime_generator import (
+    RandomDatetimeGenerator,
+)
 from dataclass_bakery.generators.random_decimal_generator import RandomDecimalGenerator
 from dataclass_bakery.generators.random_dict_generator import RandomDictGenerator
 from dataclass_bakery.generators.random_float_generator import RandomFloatGenerator
@@ -30,6 +35,8 @@ TYPING_GENERATORS = {
     tuple: RandomTupleGenerator,
     set: RandomSetGenerator,
     range: RandomRangeGenerator,
+    date: RandomDateGenerator,
+    datetime: RandomDatetimeGenerator,
     Decimal: RandomDecimalGenerator,
     Path: RandomPathGenerator,
     UUID: RandomUuidGenerator,
@@ -41,6 +48,20 @@ NUMBER_MIN_LIMIT = 0
 NUMBER_MAX_LIMIT = 100
 
 DECIMALS = 2
+
+
+HOUR_MIN_LIMIT = 0
+HOUR_MAX_LIMIT = 23
+MINUTE_MIN_LIMIT = 0
+MINUTE_MAX_LIMIT = 59
+SECOND_MIN_LIMIT = 0
+SECOND_MAX_LIMIT = 59
+DAY_MIN_LIMIT = 1
+DAY_MAX_LIMIT = 28
+MONTH_MIN_LIMIT = 1
+MONTH_MAX_LIMIT = 12
+YEAR_MIN_LIMIT = 2000
+YEAR_MAX_LIMIT = 2100
 
 DEFAULT_KEY_TYPE = str
 DEFAULT_VALUE_TYPE = int
@@ -65,3 +86,15 @@ DECIMALS_ARG = "_decimals_"  # Fix how many decimals has a number
 MAX_LENGTH_ARG = "_max_length_"  # Fix length in a attr
 DEFAULT_KEY_TYPE_ARG = "_default_key_type_"  # Fix the default key typing
 DEFAULT_VALUE_TYPE_ARG = "_default_value_type_"  # Fix the default value typing
+HOUR_MIN_LIMIT_ARG = "_min_hour_limit_"
+HOUR_MAX_LIMIT_ARG = "_max_hour_limit_"
+MINUTE_MIN_LIMIT_ARG = "_min_minute_limit_"
+MINUTE_MAX_LIMIT_ARG = "_max_minute_limit_"
+SECOND_MIN_LIMIT_ARG = "_min_second_limit_"
+SECOND_MAX_LIMIT_ARG = "_max_second_limit_"
+DAY_MIN_LIMIT_ARG = "_min_day_limit_"
+DAY_MAX_LIMIT_ARG = "_max_day_limit_"
+MONTH_MIN_LIMIT_ARG = "_min_month_limit_"
+MONTH_MAX_LIMIT_ARG = "_max_month_limit_"
+YEAR_MIN_LIMIT_ARG = "_min_year_limit_"
+YEAR_MAX_LIMIT_ARG = "_max_year_limit_"

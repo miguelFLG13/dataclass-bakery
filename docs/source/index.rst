@@ -11,7 +11,7 @@ This module is inspired by the Model Bakery module.
 Compatibility
 =============
 
-Dataclass Bakery supports Python >= 3.6
+Dataclass Bakery supports Python >= 3.7
 
 Of course you can use dataclass bakery combining with your favourite Python modules: Django, Flask, Pytest... 
 

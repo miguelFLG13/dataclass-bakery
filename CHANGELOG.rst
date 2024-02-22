@@ -19,6 +19,34 @@ Changed
 Removed
 ~~~~~~~
 
+`0.0.8 <https://pypi.org/project/dataclass-bakery/0.0.8/>`__
+-------------------------------------------------------------
+
+Added
+~~~~~
+
+- Add argument to ignore a field of a dataclass.
+
+Changed
+~~~~~~~
+
+Removed
+~~~~~~~
+
+`0.0.7 <https://pypi.org/project/dataclass-bakery/0.0.7/>`__
+-------------------------------------------------------------
+
+Added
+~~~~~
+
+- Add datetime and date generators.
+
+Changed
+~~~~~~~
+
+Removed
+~~~~~~~
+
 `0.0.6 <https://pypi.org/project/dataclass-bakery/0.0.6/>`__
 -------------------------------------------------------------
 

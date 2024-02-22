@@ -8,7 +8,7 @@ We are working with two dataclasses, `Customer` and `Address`:
 ::
 
     from dataclasses import dataclass
-    from typing import List
+    from typing import List, Optional
     from uuid import UUID
 
 
@@ -24,7 +24,7 @@ We are working with two dataclasses, `Customer` and `Address`:
     @dataclass
     class Address
         street_name: str
-        number: int
+        number: Optional[int]
 
 
 To change the behaviour with the default values of the baker we need to type:
@@ -106,6 +106,8 @@ And you can combine some different actions in your generated object:
 
 Finally you can do all actions you read before in different data class levels:
 
+::
+
     defaults = {
         'name': {
             '_max_length_': 20
@@ -125,4 +127,20 @@ Finally you can do all actions you read before in different data class levels:
 
     """
     Customer(id=16, name='MRoWdUYJiKbFddoCbeOm', spent_money=23.88, address=Address(number=48.34, street_name='qRRXWiUPusHmOmQgKWPr'), orders=[UUID('cfbbad2d-bc77-474b-8934-b2438e2abb34'), UUID('f2a48ce4-30b4-46e0-b2d1-813be8e87e35')])
+    """
+
+The last option, you can ignore fields in your generated object:
+
+::
+
+    defaults = {
+        'number': {
+            '_ignore_': True
+        }
+    }
+
+    baker.make(Address, _attr_defaults=defaults)
+
+    """
+    Address(number=None, street_name='YqgpvEISVKzAlfeemJil')
     """

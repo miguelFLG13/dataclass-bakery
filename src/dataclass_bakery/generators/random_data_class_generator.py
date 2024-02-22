@@ -10,6 +10,10 @@ class RandomDataClassGenerator:
         for field_name, field_type in data_class.__annotations__.items():
 
             arguments = kwargs.get(field_name, {})
+            if arguments.get(defaults.IGNORE_ARG):
+                random_data[field_name] = None
+                continue
+
             if defaults.FIXED_VALUE_ARG in arguments:  # Value fixed
                 random_data[field_name] = arguments[defaults.FIXED_VALUE_ARG]
                 continue

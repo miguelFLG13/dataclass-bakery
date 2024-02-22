@@ -48,6 +48,8 @@ Types available:
 -  float
 -  bool
 -  complex
+-  date
+-  datetime
 -  range
 -  list
 -  tuple

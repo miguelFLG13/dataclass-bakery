@@ -3,13 +3,13 @@ from dataclass_bakery.generators import random_data_class_generator
 from dataclass_bakery.generators.random_generator import RandomGenerator
 
 
-class RandomTupleGenerator(RandomGenerator):
+class RandomFrozensetGenerator(RandomGenerator):
     """
-    Class to generate random tuple
+    Class to generate random frozenset
     """
 
-    def generate(self, *args, **kwargs) -> tuple:
-        max_length = kwargs.get(defaults.MAX_LENGTH_ARG, defaults.MAX_TUPLE_LENGTH)
+    def generate(self, *args, **kwargs) -> frozenset:
+        max_length = kwargs.get(defaults.MAX_LENGTH_ARG, defaults.MAX_FROZENSET_LENGTH)
 
         default_value_type = kwargs.get(
             defaults.DEFAULT_VALUE_TYPE_ARG, defaults.DEFAULT_VALUE_TYPE
@@ -17,9 +17,9 @@ class RandomTupleGenerator(RandomGenerator):
 
         value_type = kwargs.get(defaults.VALUE_TYPE_ARG, default_value_type)
 
-        random_tuple = []
+        random_set = set()
         for _ in range(max_length):
-            tuple_value = random_data_class_generator.generate_value(value_type)
-            random_tuple.append(tuple_value)
+            set_value = random_data_class_generator.generate_value(value_type)
+            random_set.add(set_value)
 
-        return tuple(random_tuple)
+        return frozenset(random_set)

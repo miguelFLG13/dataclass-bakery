@@ -14,6 +14,24 @@ class TestRandomDatetimeGenerator(TestCase):
     def test_generate_datetime_ok(self):
         random_datetime = self.random_datetime_generator.generate()
         self.assertIsInstance(random_datetime, datetime)
+        self.assertIsNone(random_datetime.tzinfo)
+
+    def test_generate_datetime_respects_minute_limits_ok(self):
+        min_minute = 45
+        max_minute = 45
+        random_datetime = self.random_datetime_generator.generate(
+            **{
+                defaults.MINUTE_MIN_LIMIT_ARG: min_minute,
+                defaults.MINUTE_MAX_LIMIT_ARG: max_minute,
+            }
+        )
+        self.assertEqual(random_datetime.minute, 45)
+
+    def test_generate_datetime_tz_aware_ok(self):
+        random_datetime = self.random_datetime_generator.generate(
+            **{defaults.TZ_AWARE_ARG: True}
+        )
+        self.assertIsNotNone(random_datetime.tzinfo)
 
     def test_generate_datetime_incorrect_min_hour_ko(self):
         min_hour = -1

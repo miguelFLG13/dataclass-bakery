@@ -1,5 +1,3 @@
-from dataclasses import is_dataclass
-
 from dataclass_bakery.generators import defaults
 from dataclass_bakery.generators import random_data_class_generator
 from dataclass_bakery.generators.random_generator import RandomGenerator
@@ -19,18 +17,9 @@ class RandomListGenerator(RandomGenerator):
 
         value_type = kwargs.get(defaults.VALUE_TYPE_ARG, default_value_type)
 
-        if is_dataclass(value_type):
-            generator = random_data_class_generator.RandomDataClassGenerator()
-        else:
-            generator = defaults.TYPING_GENERATORS[value_type]()
-
         random_list = []
         for _ in range(max_length):
-            if is_dataclass(value_type):
-                list_value = generator.generate(value_type)
-            else:
-                list_value = generator.generate()
-
+            list_value = random_data_class_generator.generate_value(value_type)
             random_list.append(list_value)
 
         return random_list

@@ -1,4 +1,5 @@
 from dataclass_bakery.generators import defaults
+from dataclass_bakery.generators import random_data_class_generator
 from dataclass_bakery.generators.random_generator import RandomGenerator
 
 
@@ -15,11 +16,10 @@ class RandomSetGenerator(RandomGenerator):
         )
 
         value_type = kwargs.get(defaults.VALUE_TYPE_ARG, default_value_type)
-        generator = defaults.TYPING_GENERATORS[value_type]()
 
         random_set = set()
         for _ in range(max_length):
-            set_value = generator.generate()
+            set_value = random_data_class_generator.generate_value(value_type)
             random_set.add(set_value)
 
         return random_set

@@ -31,7 +31,7 @@ class TestRandomIntGenerator(TestCase):
         self.assertTrue(defaults.NUMBER_MIN_LIMIT <= random_int <= max_limit)
 
     def test_generate_int_incorrect_min_limit_ko(self):
-        with self.assertRaises(ValueError):
+        with self.assertRaises(TypeError):
             self.random_int_generator.generate(**{defaults.NUMBER_MIN_LIMIT_ARG: "asd"})
 
     def test_generate_int_incorrect_max_limit_ko(self):

@@ -41,11 +41,15 @@ class TestRandomDataClassGenerator(TestCase):
             )
 
     def test_generate_dataclass_union_typing_ok(self):
-        random_data_class = self.random_data_class_generator.generate(
-            testing_dataclasses.StuffUnion
-        )
-        self.assertIsInstance(random_data_class, testing_dataclasses.StuffUnion)
-        self.assertIsInstance(random_data_class.item_union, float)
+        types_seen = set()
+        for _ in range(60):
+            random_data_class = self.random_data_class_generator.generate(
+                testing_dataclasses.StuffUnion
+            )
+            self.assertIsInstance(random_data_class, testing_dataclasses.StuffUnion)
+            self.assertIsInstance(random_data_class.item_union, (float, complex))
+            types_seen.add(type(random_data_class.item_union))
+        self.assertEqual(types_seen, {float, complex})
 
     def test_generate_dataclass_optional_typing_ok(self):
         random_data_class = self.random_data_class_generator.generate(
@@ -84,6 +88,76 @@ class TestRandomDataClassGenerator(TestCase):
         )
         self.assertIsInstance(random_data_class, testing_dataclasses.StuffTuple)
         self.assertIsInstance(random_data_class.item_tuple, tuple)
+
+    def test_generate_dataclass_enum_typing_ok(self):
+        random_data_class = self.random_data_class_generator.generate(
+            testing_dataclasses.StuffEnum
+        )
+        self.assertIsInstance(random_data_class, testing_dataclasses.StuffEnum)
+        self.assertIsInstance(
+            random_data_class.item_enum, testing_dataclasses.Color
+        )
+
+    def test_generate_dataclass_optional_enum_typing_ok(self):
+        random_data_class = self.random_data_class_generator.generate(
+            testing_dataclasses.StuffOptionalEnum
+        )
+        self.assertIsInstance(
+            random_data_class, testing_dataclasses.StuffOptionalEnum
+        )
+        self.assertIsInstance(
+            random_data_class.item_optional_enum, testing_dataclasses.Color
+        )
+
+    def test_generate_dataclass_multi_union_typing_ok(self):
+        types_seen = set()
+        for _ in range(60):
+            random_data_class = self.random_data_class_generator.generate(
+                testing_dataclasses.StuffMultiUnion
+            )
+            self.assertIsInstance(
+                random_data_class, testing_dataclasses.StuffMultiUnion
+            )
+            types_seen.add(type(random_data_class.item_multi_union))
+        self.assertEqual(types_seen, {int, str, float})
+
+    def test_generate_dataclass_nested_list_typing_ok(self):
+        random_data_class = self.random_data_class_generator.generate(
+            testing_dataclasses.StuffNestedList
+        )
+        self.assertIsInstance(random_data_class, testing_dataclasses.StuffNestedList)
+        self.assertIsInstance(random_data_class.item_nested_list, list)
+        self.assertIsInstance(random_data_class.item_nested_list[0], list)
+        self.assertIsInstance(random_data_class.item_nested_list[0][0], int)
+
+    def test_generate_dataclass_nested_dict_typing_ok(self):
+        random_data_class = self.random_data_class_generator.generate(
+            testing_dataclasses.StuffNestedDict
+        )
+        self.assertIsInstance(random_data_class, testing_dataclasses.StuffNestedDict)
+        values = list(random_data_class.item_nested_dict.values())
+        self.assertIsInstance(values[0], list)
+        self.assertIsInstance(values[0][0], int)
+
+    def test_generate_dataclass_named_tuple_typing_ok(self):
+        random_data_class = self.random_data_class_generator.generate(
+            testing_dataclasses.StuffNamedTuple
+        )
+        self.assertIsInstance(random_data_class, testing_dataclasses.StuffNamedTuple)
+        self.assertIsInstance(
+            random_data_class.item_named_tuple, testing_dataclasses.Point
+        )
+        self.assertIsInstance(random_data_class.item_named_tuple.x, int)
+        self.assertIsInstance(random_data_class.item_named_tuple.y, int)
+
+    def test_generate_dataclass_typed_dict_typing_ok(self):
+        random_data_class = self.random_data_class_generator.generate(
+            testing_dataclasses.StuffTypedDict
+        )
+        self.assertIsInstance(random_data_class, testing_dataclasses.StuffTypedDict)
+        self.assertIsInstance(random_data_class.item_typed_dict, dict)
+        self.assertIsInstance(random_data_class.item_typed_dict["name"], str)
+        self.assertIsInstance(random_data_class.item_typed_dict["age"], int)
 
     def test_generate_dataclass_nested_ok(self):
         random_data_class = self.random_data_class_generator.generate(

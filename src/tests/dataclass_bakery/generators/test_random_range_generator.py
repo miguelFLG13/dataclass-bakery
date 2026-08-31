@@ -33,7 +33,7 @@ class TestRandomRangeGenerator(TestCase):
         self.assertTrue(defaults.NUMBER_MIN_LIMIT <= random_range.stop <= max_limit)
 
     def test_generate_range_incorrect_min_limit(self):
-        with self.assertRaises(ValueError):
+        with self.assertRaises(TypeError):
             self.random_range_generator.generate(
                 **{defaults.NUMBER_MIN_LIMIT_ARG: "asd"}
             )

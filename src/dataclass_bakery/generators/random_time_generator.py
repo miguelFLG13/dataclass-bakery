@@ -1,5 +1,5 @@
 import random
-from datetime import datetime, MAXYEAR, MINYEAR
+from datetime import time
 
 from dataclass_bakery.generators import defaults
 from dataclass_bakery.generators.random_generator import RandomGenerator
@@ -8,50 +8,12 @@ from dataclass_bakery.generators.random_zoneinfo_generator import (
 )
 
 
-class RandomDatetimeGenerator(RandomGenerator):
+class RandomTimeGenerator(RandomGenerator):
     """
-    Class to generate random date number
+    Class to generate random time
     """
 
-    def generate(self, *args, **kwargs) -> datetime:
-        min_day_limit = kwargs.get(defaults.DAY_MIN_LIMIT_ARG, defaults.DAY_MIN_LIMIT)
-        if min_day_limit < 1:
-            raise ValueError("Error: Min day incorrect")
-
-        max_day_limit = kwargs.get(defaults.DAY_MAX_LIMIT_ARG, defaults.DAY_MAX_LIMIT)
-        if max_day_limit > 28:
-            raise ValueError("Error: Max day incorrect")
-
-        min_month_limit = kwargs.get(
-            defaults.MONTH_MIN_LIMIT_ARG, defaults.MONTH_MIN_LIMIT
-        )
-        if min_month_limit < 1:
-            raise ValueError("Error: Min month incorrect")
-
-        max_month_limit = kwargs.get(
-            defaults.MONTH_MAX_LIMIT_ARG, defaults.MONTH_MAX_LIMIT
-        )
-        if max_month_limit > 12:
-            raise ValueError("Error: Max month incorrect")
-
-        if min_month_limit > max_month_limit:
-            raise ValueError("Error: Min month > Max month")
-
-        min_year_limit = kwargs.get(
-            defaults.YEAR_MIN_LIMIT_ARG, defaults.YEAR_MIN_LIMIT
-        )
-        if min_year_limit < MINYEAR:
-            raise ValueError("Error: Min year incorrect")
-
-        max_year_limit = kwargs.get(
-            defaults.YEAR_MAX_LIMIT_ARG, defaults.YEAR_MAX_LIMIT
-        )
-        if max_year_limit > MAXYEAR:
-            raise ValueError("Error: Max year incorrect")
-
-        if min_year_limit > max_year_limit:
-            raise ValueError("Error: Min year > Max year")
-
+    def generate(self, *args, **kwargs) -> time:
         min_hour_limit = kwargs.get(
             defaults.HOUR_MIN_LIMIT_ARG, defaults.HOUR_MIN_LIMIT
         )
@@ -97,9 +59,6 @@ class RandomDatetimeGenerator(RandomGenerator):
         if min_second_limit > max_second_limit:
             raise ValueError("Error: Min second > Max second")
 
-        day = random.randint(min_day_limit, max_day_limit)
-        month = random.randint(min_month_limit, max_month_limit)
-        year = random.randint(min_year_limit, max_year_limit)
         hour = random.randint(min_hour_limit, max_hour_limit)
         minute = random.randint(min_minute_limit, max_minute_limit)
         second = random.randint(min_second_limit, max_second_limit)
@@ -108,5 +67,5 @@ class RandomDatetimeGenerator(RandomGenerator):
         if kwargs.get(defaults.TZ_AWARE_ARG):
             tzinfo = RandomZoneinfoGenerator().generate()
 
-        new_datetime = datetime(year, month, day, hour, minute, second, tzinfo=tzinfo)
-        return new_datetime
+        new_time = time(hour, minute, second, tzinfo=tzinfo)
+        return new_time
